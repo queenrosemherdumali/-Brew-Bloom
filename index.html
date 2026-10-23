@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Brew & Bloom Café</title>
+
+  <script>
+    if (localStorage.getItem("brew-theme") === "dark") {
+      document.documentElement.classList.add("dark");
+    }
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
+
+  <style type="text/tailwindcss">
+    @custom-variant dark (&:where(.dark, .dark *));
+
+    @theme {
+      --color-coffee: #493323;
+      --color-latte: #E8D5B7;
+      --color-leaf: #647B52;
+      --color-cream: #FFF9F0;
+      --color-darkcoffee: #211811;
+    }
+
+    @layer components {
+      .cafe-card {
+        @apply rounded-2xl bg-white p-6 shadow-md dark:bg-stone-800;
+      }
+
+      .cafe-button {
+        @apply inline-block rounded-full bg-leaf px-6 py-3 font-bold text-white hover:brightness-90 focus:outline-none focus:ring-2 focus:ring-leaf focus:ring-offset-2 dark:focus:ring-offset-stone-900;
+      }
+
+      .nav-link {
+        @apply rounded-lg px-3 py-2 font-medium text-coffee hover:bg-latte dark:text-white dark:hover:bg-stone-700;
+      }
+    }
+  </style>
+</head>
+
+<body class="bg-cream text-coffee dark:bg-darkcoffee dark:text-white">
+
+  <!-- SCROLL PROGRESS -->
+  <div id="progress"
+    class="fixed left-0 top-0 z-50 h-1 w-0 bg-leaf">
+  </div>
+
+  <!-- HEADER -->
+  <header class="sticky top-0 z-40 border-b border-coffee/10 bg-cream/95 backdrop-blur dark:border-white/10 dark:bg-darkcoffee/95">
+
+    <nav class="mx-auto flex max-w-7xl items-center justify-between p-4"
+      aria-label="Main navigation">
+
+      <a href="#home" class="text-xl font-black">
+        ☕ Brew <span class="text-leaf">&</span> Bloom
+      </a>
+
+      <div class="hidden gap-2 md:flex">
+        <a href="#home" class="nav-link">Home</a>
+        <a href="#about" class="nav-link">About</a>
+        <a href="#menu" class="nav-link">Menu</a>
+        <a href="#contact" class="nav-link">Contact</a>
+      </div>
+
+      <button id="theme-toggle" type="button"
+        class="rounded-full border border-coffee/20 px-3 py-2 text-sm font-bold dark:border-white/20">
+        🌙 Dark Mode
+      </button>
+    </nav>
+  </header>
+
+  <main>
+
+    <!-- HERO SECTION -->
+    <section id="home"
+      class="bg-latte px-6 py-20 dark:bg-stone-800 md:py-32">
+
+      <div class="mx-auto grid max-w-7xl items-center gap-12 md:grid-cols-2">
+
+        <div>
+          <p class="hero-item mb-4 font-bold uppercase tracking-[0.2em] text-leaf">
+            Coffee • Plants • Good Vibes
+          </p>
+
+          <h1 class="hero-item text-5xl font-black leading-tight md:text-7xl">
+            Sip Slowly.<br>
+            <span class="text-leaf">Bloom Daily.</span>
+          </h1>
+
+          <p class="hero-item mt-6 max-w-lg text-lg leading-8">
+            Welcome to Brew & Bloom, your cozy corner for freshly brewed
+            coffee, beautiful plants, and peaceful moments.
+          </p>
+
+          <div class="hero-item mt-8 flex flex-wrap gap-4">
+            <a href="#menu" class="cafe-button">
+              Explore Our Menu →
+            </a>
+
+            <button id="replay-intro" type="button"
+              class="rounded-full border border-coffee px-6 py-3 font-bold dark:border-white">
+              Replay Intro
+            </button>
+          </div>
+        </div>
+
+        <div class="hero-art rounded-3xl bg-cream p-8 text-center shadow-xl dark:bg-stone-900">
+          <div class="text-8xl" aria-hidden="true">☕</div>
+          <div class="my-4 text-5xl" aria-hidden="true">🌿</div>
+          <h2 class="text-3xl font-black">Brew & Bloom</h2>
+          <p class="mt-3">A little coffee, a little nature.</p>
+          <p class="mt-2 text-sm italic">Your daily dose of comfort.</p>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ABOUT SECTION -->
+    <section id="about"
+      class="reveal px-6 py-20 dark:bg-darkcoffee md:py-24">
+
+      <div class="mx-auto max-w-6xl">
+        <p class="font-bold uppercase tracking-widest text-leaf">
+          Our Story
+        </p>
+
+        <h2 class="mt-3 text-3xl font-black md:text-4xl">
+          More Than Just Coffee.
+        </h2>
+
+        <p class="mt-6 max-w-3xl text-lg leading-8 text-coffee/80 dark:text-gray-200">
+          Brew & Bloom is a fictional café inspired by the beauty of nature
+          and the comfort of coffee. We believe that a simple cup of coffee
+          can brighten your day. Our café combines delicious drinks, green
+          plants, and a relaxing atmosphere where friends can connect,
+          students can study, and everyone can take a peaceful break.
+        </p>
+
+        <div class="mt-8 grid gap-5 sm:grid-cols-3">
+          <div class="rounded-2xl bg-latte p-5 dark:bg-stone-800">
+            <p class="text-3xl">☕</p>
+            <h3 class="mt-3 font-bold">Freshly Brewed</h3>
+            <p class="mt-2 text-sm leading-6">Coffee made for your everyday moments.</p>
+          </div>
+
+          <div class="rounded-2xl bg-latte p-5 dark:bg-stone-800">
+            <p class="text-3xl">🌿</p>
+            <h3 class="mt-3 font-bold">Natural Beauty</h3>
+            <p class="mt-2 text-sm leading-6">A green and calming café atmosphere.</p>
+          </div>
+
+          <div class="rounded-2xl bg-latte p-5 dark:bg-stone-800">
+            <p class="text-3xl">🤎</p>
+            <h3 class="mt-3 font-bold">Made with Care</h3>
+            <p class="mt-2 text-sm leading-6">A welcoming space for everyone.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MENU SECTION -->
+    <section id="menu"
+      class="reveal bg-latte px-6 py-20 dark:bg-stone-800 md:py-24">
+
+      <div class="mx-auto max-w-7xl">
+        <div class="text-center">
+          <p class="font-bold uppercase tracking-widest text-leaf">
+            Our Favorites
+          </p>
+
+          <h2 class="mt-3 text-3xl font-black md:text-4xl">
+            Find Your Perfect Sip.
+          </h2>
+
+          <p class="mx-auto mt-4 max-w-xl leading-7">
+            From bold coffee to sweet treats, there's something to make
+            every visit special.
+          </p>
+        </div>
+
+        <div class="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+
+          <article class="reveal cafe-card">
+            <div class="grid h-40 place-items-center rounded-xl bg-latte text-7xl dark:bg-stone-900">
+              ☕
+            </div>
+            <p class="mt-5 text-sm font-bold uppercase tracking-widest text-leaf">
+              Coffee Classic
+            </p>
+            <h3 class="mt-2 text-xl font-black">Caramel Latte</h3>
+            <p class="mt-3 leading-7 text-coffee/75 dark:text-gray-200">
+              Smooth espresso blended with creamy milk and sweet caramel.
+            </p>
+            <p class="mt-4 text-xl font-black">₱120</p>
+          </article>
+
+          <article class="reveal cafe-card">
+            <div class="grid h-40 place-items-center rounded-xl bg-latte text-7xl dark:bg-stone-900">
+              🧊
+            </div>
+            <p class="mt-5 text-sm font-bold uppercase tracking-widest text-leaf">
+              Chilled Favorite
+            </p>
+            <h3 class="mt-2 text-xl font-black">Iced Spanish Latte</h3>
+            <p class="mt-3 leading-7 text-coffee/75 dark:text-gray-200">
+              Refreshing iced espresso with creamy, sweet milk.
+            </p>
+            <p class="mt-4 text-xl font-black">₱135</p>
+          </article>
+
+          <article class="reveal cafe-card md:col-span-2 lg:col-span-1">
+            <div class="grid h-40 place-items-center rounded-xl bg-latte text-7xl dark:bg-stone-900">
+              🥐
+            </div>
+            <p class="mt-5 text-sm font-bold uppercase tracking-widest text-leaf">
+              Sweet Treat
+            </p>
+            <h3 class="mt-2 text-xl font-black">Butter Croissant</h3>
+            <p class="mt-3 leading-7 text-coffee/75 dark:text-gray-200">
+              A flaky, buttery pastry that pairs perfectly with coffee.
+            </p>
+            <p class="mt-4 text-xl font-black">₱85</p>
+          </article>
+
+        </div>
+
+        <p class="mt-8 text-center text-sm italic">
+          Sample menu and prices for this fictional café project.
+        </p>
+      </div>
+    </section>
+
+    <!-- CONTACT SECTION -->
+    <section id="contact"
+      class="reveal px-6 py-20 dark:bg-darkcoffee md:py-24">
+
+      <div class="mx-auto grid max-w-6xl gap-10 md:grid-cols-2">
+
+        <div>
+          <p class="font-bold uppercase tracking-widest text-leaf">
+            Get in Touch
+          </p>
+
+          <h2 class="mt-3 text-3xl font-black md:text-4xl">
+            Let's Have a Coffee.
+          </h2>
+
+          <p class="mt-5 text-lg leading-8 text-coffee/80 dark:text-gray-200">
+            Have a question, suggestion, or idea? Send us a message.
+            We'd love to hear from you!
+          </p>
+
+          <div class="mt-8 rounded-2xl bg-latte p-6 dark:bg-stone-800">
+            <p class="font-bold">☕ Brew & Bloom Café</p>
+            <p class="mt-2">Email: dumali@gmail.com</p>
+            <p class="mt-2">A cozy place to pause and grow.</p>
+          </div>
+        </div>
+
+        <form id="contact-form"
+          class="rounded-2xl border border-coffee/10 bg-white p-6 shadow-md dark:border-white/10 dark:bg-stone-800">
+
+          <div class="mb-5">
+            <label for="name" class="mb-2 block font-bold">
+              Full Name
+            </label>
+
+            <input id="name" name="name" type="text" required
+              placeholder="Enter your name"
+              class="w-full rounded-lg border border-gray-300 bg-cream p-3 text-gray-900 focus:border-leaf focus:outline-none dark:border-gray-600 dark:bg-stone-900 dark:text-white">
+          </div>
+
+          <div class="mb-5">
+            <label for="email" class="mb-2 block font-bold">
+              Email Address
+            </label>
+
+            <input id="email" name="email" type="email" required
+              placeholder="enter your gmail"
+              class="w-full rounded-lg border border-gray-300 bg-cream p-3 text-gray-900 focus:border-leaf focus:outline-none dark:border-gray-600 dark:bg-stone-900 dark:text-white">
+          </div>
+
+          <div class="mb-5">
+            <label for="message" class="mb-2 block font-bold">
+              Message
+            </label>
+
+            <textarea id="message" name="message" rows="4" required
+              placeholder="Write your message"
+              class="w-full rounded-lg border border-gray-300 bg-cream p-3 text-gray-900 focus:border-leaf focus:outline-none dark:border-gray-600 dark:bg-stone-900 dark:text-white"></textarea>
+          </div>
+
+          <button type="submit" class="cafe-button w-full">
+            Send Message →
+          </button>
+
+          <p id="form-feedback" class="mt-4 text-sm" role="status"></p>
+        </form>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="bg-latte px-6 py-8 text-center dark:bg-stone-800">
+    <p class="text-xl font-black">☕ Brew & Bloom 🌿</p>
+
+    <p class="mt-2 text-sm">
+      Sip Slowly. Bloom Daily.
+    </p>
+
+    <p class="mt-3 text-sm">
+      © <span id="year"></span> Brew & Bloom Café. All rights reserved.
+    </p>
+
+    <a href="#home" class="mt-3 inline-block font-bold underline">
+      Back to Top ↑
+    </a>
+  </footer>
+
+  <script>
+    // DARK MODE
+    const root = document.documentElement;
+    const themeToggle = document.getElementById("theme-toggle");
+
+    function updateThemeLabel() {
+      themeToggle.textContent = root.classList.contains("dark")
+        ? "☀️ Light Mode"
+        : "🌙 Dark Mode";
+    }
+
+    themeToggle.addEventListener("click", () => {
+      root.classList.toggle("dark");
+
+      localStorage.setItem(
+        "brew-theme",
+        root.classList.contains("dark") ? "dark" : "light"
+      );
+
+      updateThemeLabel();
+    });
+
+    updateThemeLabel();
+
+    // FOOTER YEAR
+    document.getElementById("year").textContent =
+      new Date().getFullYear();
+
+    // CONTACT FORM DEMO
+    document.getElementById("contact-form").addEventListener("submit", (event) => {
+      event.preventDefault();
+
+      document.getElementById("form-feedback").textContent =
+        "Thank you for contacting Brew & Bloom! This demo form does not send messages yet.";
+    });
+
+    // GSAP INTRO TIMELINE
+    gsap.registerPlugin(ScrollTrigger);
+
+    // Power2.out gives the intro a smooth, welcoming finish.
+    const introTimeline = gsap.timeline({
+      defaults: {
+        duration: 0.6,
+        ease: "power2.out"
+      }
+    });
+
+    introTimeline
+      .from(".hero-item", {
+        y: 25,
+        opacity: 0,
+        stagger: 0.12
+      })
+      .from(".hero-art", {
+        y: 25,
+        opacity: 0,
+        scale: 0.95
+      }, "-=0.4")
+      .from("header nav", {
+        y: -15,
+        opacity: 0,
+        duration: 0.35
+      }, "<");
+
+    // REPLAY BUTTON
+    document.getElementById("replay-intro").addEventListener("click", () => {
+      introTimeline.restart();
+    });
+
+    // SCROLL REVEALS AND PROGRESS BAR
+    // Reduced-motion users still see every section without scroll animations.
+    const motionSettings = gsap.matchMedia();
+
+    motionSettings.add(
+      "(prefers-reduced-motion: no-preference)",
+      () => {
+        gsap.utils.toArray(".reveal").forEach((element) => {
+          gsap.from(element, {
+            y: 25,
+            opacity: 0,
+            duration: 0.7,
+            ease: "power2.out",
+            scrollTrigger: {
+              trigger: element,
+              start: "top 85%",
+              toggleActions: "play none none reverse"
+            }
+          });
+        });
+
+        gsap.to("#progress", {
+          width: "100%",
+          ease: "none",
+          scrollTrigger: {
+            trigger: document.documentElement,
+            start: "top top",
+            end: "bottom bottom",
+            scrub: true
+          }
+        });
+      }
+    );
+    
+  </script>
+
+</body>
+</html>
